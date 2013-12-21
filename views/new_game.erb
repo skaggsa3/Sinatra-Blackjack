@@ -1,0 +1,35 @@
+<p>Welcome <%= session[:player_name] %></p>
+
+<div class='well'>
+<h4>Dealer has the following cards:</h4>
+		<% session[:dealers_cards].each do |cards|%>
+			<%= image(cards) %>
+		<% end %>
+</div>
+
+<p>Dealer's total: <%= session[:dealer_total] %></p>
+
+<div class='well'>
+	<h4><%= session[:player_name] %> has the following cards:</h4>
+		<% session[:players_cards].each do |cards|%>
+			<%= image(cards) %>
+		<% end %>
+</div>
+
+<p><%= session[:player_name] %> has a total of: <%= calculate_total(session[:players_cards]) %></p>
+
+<% if @hit_or_stay %>
+	<form action='/new_game/hit' action='post' id='hitform'>
+		<input type='submit' name='hit' value='Hit' class='btn btn-success'>
+	</form>
+
+	<form action='/new_game/stay' action='post' id='stayform'>
+		<input type='submit' name='stay' value='Stay' class='btn btn-warning'>
+	</form>
+<% end %>
+
+<% if @dealer_hit %>
+	<form action='/dealer/hit' action='post' id='dealerhit'>
+		<input type='submit' name='dHit' value='Dealers next card' class='btn btn-success'>
+	</form>
+<% end %>
