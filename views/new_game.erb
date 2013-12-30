@@ -7,7 +7,7 @@
 		<% end %>
 </div>
 
-<p>Dealer's total: <%= session[:dealer_total] %></p>
+<p>Dealer's total: <%= calculate_total(session[:dealers_cards]) %></p>
 
 <div class='well'>
 	<h4><%= session[:player_name] %> has the following cards:</h4>
