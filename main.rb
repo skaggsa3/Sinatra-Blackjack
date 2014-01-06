@@ -33,6 +33,7 @@ helpers do
   end
 
   def image(card)
+    card.map!(&:capitalize)
     suit = card[0]
     value = card[1]
     path = "#{suit}_#{value}"
