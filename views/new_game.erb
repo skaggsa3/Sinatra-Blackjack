@@ -3,11 +3,15 @@
 <div class='well'>
 <h4>Dealer has the following cards:</h4>
 		<% session[:dealers_cards].each do |cards|%>
-			<%= image(cards) %>
+			<% if @dealer_turn %>
+				<%= image(cards) %>
+			<% else %>
+				<%= image_cover(cards) %>
+			<% end %>
 		<% end %>
 </div>
 
-<p>Dealer's total: <%= calculate_total(session[:dealers_cards]) %></p>
+<!-- <p>Dealer's total: <%= calculate_total(session[:dealers_cards]) %></p> -->
 
 <div class='well'>
 	<h4><%= session[:player_name] %> has the following cards:</h4>

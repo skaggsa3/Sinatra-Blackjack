@@ -37,11 +37,24 @@ helpers do
     value = card[1]
     "<img src=/images/cards/#{suit}_#{value}.jpg class=card_image>"
   end
+
+  def image_cover(cards)
+    if @dealer_count == 1
+      @dealer_count = @dealer_count + 1
+      result = image(cards)
+    else
+      @dealer_count = @dealer_count + 1
+      result = "<img src=/images/cards/cover.jpg class=card_image>"
+    end
+    result
+  end
+
 end
 
 before do
   @hit_or_stay = true
   @dealer_hit = false
+  @dealer_count = 0
 end
 
 
@@ -98,6 +111,10 @@ get '/new_game' do
     @hit_or_stay = false
   end
 
+  if session[:dealer_total] > session[:player_total]
+    @error = "#{session[:player_name]} has lost"
+  end
+
   erb :new_game
 end
 
@@ -117,12 +134,15 @@ end
 get '/new_game/stay' do
   @dealer_hit = true
   @hit_or_stay = false
+  @dealer_turn = true
   erb :new_game
 end
 
 get '/dealer/hit' do
   @hit_or_stay = false
   @dealer_total = false
+  @dealer_turn = true
+  session[:player_total] = calculate_total(session[:players_cards])
   session[:dealers_cards] << session[:deck].pop
   session[:dealer_total] = calculate_total(session[:dealers_cards])
   if session[:dealer_total] <= session[:player_total]
