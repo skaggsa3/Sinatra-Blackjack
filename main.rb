@@ -33,10 +33,9 @@ helpers do
   end
 
   def image(card)
-    card.map!(&:capitalize)
     suit = card[0]
     value = card[1]
-    path = "#{suit}_#{value}"
+    path = "#{suit.downcase}_#{value.downcase}"
     "<img src=/images/cards/#{path}.jpg class=card_image>"
   end
 
@@ -115,6 +114,7 @@ get '/new_game' do
 
   if session[:dealer_total] > session[:player_total]
     @error = "#{session[:player_name]} has lost"
+    @hit_or_stay = false
   end
 
   erb :new_game
