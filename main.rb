@@ -135,6 +135,7 @@ get '/new_game/stay' do
   session[:player_total] = calculate_total(session[:players_cards])
   if session[:dealer_total] > session[:player_total]
     @error = "#{session[:player_name]} has lost, the dealer has #{session[:dealer_total]}"
+    @dealer_hit = false
   end
   erb :new_game
 end
