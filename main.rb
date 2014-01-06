@@ -35,7 +35,8 @@ helpers do
   def image(card)
     suit = card[0]
     value = card[1]
-    "<img src=/images/cards/#{suit}_#{value}.jpg class=card_image>"
+    path = "#{suit}_#{value}"
+    "<img src=/images/cards/#{path}.jpg class=card_image>"
   end
 
   def image_cover(cards)
