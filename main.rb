@@ -112,11 +112,6 @@ get '/new_game' do
     @hit_or_stay = false
   end
 
-  if session[:dealer_total] > session[:player_total]
-    @error = "#{session[:player_name]} has lost"
-    @hit_or_stay = false
-  end
-
   erb :new_game
 end
 
@@ -137,6 +132,9 @@ get '/new_game/stay' do
   @dealer_hit = true
   @hit_or_stay = false
   @dealer_turn = true
+  if session[:dealer_total] > session[:player_total]
+    @error = "#{session[:player_name]} has lost, the dealer has #{session[:dealer_total]}"
+  end
   erb :new_game
 end
 
