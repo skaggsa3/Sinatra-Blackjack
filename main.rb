@@ -72,7 +72,7 @@ get '/new_player' do
 end
 
 post '/new_player' do
-  if params[:player_name].empty?
+  if params[:player_name].empty? || !params[:player_name].match(/[a-z]/)
     @error = "Name required"
     halt erb :new_player
   end
